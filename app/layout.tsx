@@ -1,9 +1,28 @@
-import React from 'react'
+import '@styles/globals.css'
+import Navbar from '@components/Navbar';
+import Provider from '@components/Provider';
 
-const layout = () => {
-  return (
-    <div>layout</div>
-  )
+export const metadata = {
+    title: 'Promptify',
+    description: 'AI powered tool to share,discover and create new prompts'
 }
 
-export default layout
+export default function RootLayout({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
+    return (
+      <html lang="en">
+        <body>
+            <div className='main'>
+                <div className='gradient'/>
+            </div>
+            <main className='app'>
+                <Navbar />
+                {children}    
+            </main>
+        </body>
+      </html>
+    );
+  }
