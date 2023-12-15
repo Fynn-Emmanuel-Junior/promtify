@@ -6,9 +6,10 @@ import { useState,useEffect } from 'react'
 import {signIn,signOut,useSession,getProviders} from 'next-auth/react'
 
 const Navbar = () => {
-	const isUserLogin = false
+	const isUserLogin = true
 	
 	const [providers,setProviders] = useState(null)
+	const [toggledropdown,setToggleDropdown] = useState(false)
 
 	useEffect(() => {
 		const setProviders = async () => {
@@ -53,10 +54,54 @@ const Navbar = () => {
 						</Link>
 					</div>) : (
 					<> 
-
+						{
+							providers && Object.values(providers).map((provider) => (
+								<button
+									type="button"
+									key={provider.name}
+									className=""
+									onClick={() => signIn(provider.id)}
+								>
+									Sign In								
+								</button>
+							))
+						}
 					</>
 				)
 			}
+		</div>
+
+		{/* Mobile navigation */}
+		<div className="sm:hidden flex relaive">
+			{
+				isUserLogin ? (
+					<div className="flex"> 
+						<Image 
+								src='/assets/images/logo.svg'
+								width={37}
+								height={37}
+								alt="profile image"
+								className="rounded-full"
+								onClick={() => setToggleDropdown((prev) => !prev)}
+							/>
+					</div> ) : (
+						<> 
+						{
+							providers && Object.values(providers).map((provider) => (
+								<button
+									type="button"
+									key={provider.name}
+									className=""
+									onClick={() => signIn(provider.id)}
+								>
+									Sign In								
+								</button>
+							))
+						}
+					</>
+					)
+			}
+
 		</div>
     </nav>
   )
