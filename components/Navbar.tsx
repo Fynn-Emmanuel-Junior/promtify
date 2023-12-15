@@ -77,13 +77,42 @@ const Navbar = () => {
 				isUserLogin ? (
 					<div className="flex"> 
 						<Image 
-								src='/assets/images/logo.svg'
-								width={37}
-								height={37}
-								alt="profile image"
-								className="rounded-full"
-								onClick={() => setToggleDropdown((prev) => !prev)}
-							/>
+							src='/assets/images/logo.svg'
+							width={37}
+							height={37}
+							alt="profile image"
+							className="rounded-full"
+							onClick={() => setToggleDropdown((prev) => !prev)}
+						/>
+
+							{
+								toggledropdown && <div className="dropdown">
+									<Link 
+										href='/profile'
+										className="dropdown_link"
+										onClick={() => setToggleDropdown(false)}
+									>
+										My profile
+									</Link>
+									<Link 
+										href='/create-prompt'
+										className="dropdown_link"
+										onClick={() => setToggleDropdown(false)}
+									>
+										Create Prompt
+									</Link>
+									<button 
+										type='button'
+										onClick={() => {
+											setToggleDropdown(false)
+											signOut()
+										}}
+										className="mt-5 w-full black_btn"
+									>
+										Sign Out
+									</button>
+								</div>
+							}
 					</div> ) : (
 						<> 
 						{
@@ -99,9 +128,8 @@ const Navbar = () => {
 							))
 						}
 					</>
-					)
+				)
 			}
-
 		</div>
     </nav>
   )
