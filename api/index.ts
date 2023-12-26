@@ -10,7 +10,7 @@ const database_uri : string = process.env.DATABASE_URI as string
 
 const app: Express = express()
 
-const PORT = process.env.PORT || 3500
+const PORT = process.env.PORT
 
 
 // middlewares
