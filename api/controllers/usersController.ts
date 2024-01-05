@@ -32,3 +32,36 @@ export const registerController = async (req:Request,res:Response) => {
         }
     }
 }
+
+export const loginController = async(req:Request,res:Response) => {
+    const foundUser = await UserModel.findOne({email: req.body.email})
+
+    if(!foundUser) return res.status(404)
+                                .json({
+                                    status: false,
+                                    message: 'User not found'
+                            })
+    
+    const match = await bcrypt.compare(req.body.password, foundUser.password)
+
+    if(match) {
+        try {
+            const accesstoken = jwt.sign(
+                {"userId": foundUser._userId},
+
+            )
+        } catch(err: unknown) {
+            if(err instanceof Error) {
+                res.status(400)
+                    .json({
+                        status: false,
+                        message: err.message
+,
+                    })
+            }
+        }
+    }   else {
+            res.status(400).json('Invalid password')
+
+    }                      
+}
